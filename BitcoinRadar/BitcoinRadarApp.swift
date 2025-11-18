@@ -1,17 +1,22 @@
-//
-//  BitcoinRadarApp.swift
-//  BitcoinRadar
-//
-//  Created by Hossein Asadiparchenaki on 14.11.25.
-//
-
 import SwiftUI
 
 @main
 struct BitcoinRadarApp: App {
+    private let container: DependencyContainer
+
+    init() {
+        #if DEBUG
+        if let scenario = UITestConfiguration.currentScenario {
+            container = UITestDependencyContainer(scenario: scenario)
+            return
+        }
+        #endif
+        container = AppDependencyContainer.shared
+    }
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ListView(container: container)
         }
     }
 }
